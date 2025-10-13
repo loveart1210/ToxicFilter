@@ -1,0 +1,87 @@
+[
+  {
+    "index": 1,
+    "post_text": "Địt",
+    "status": "toxic",
+    "toxic_detected": [
+      "địt"
+    ]
+  },
+  {
+    "index": 2,
+    "post_text": "Đụ cặc lồn",
+    "status": "toxic",
+    "toxic_detected": [
+      "lồn",
+      "cặc",
+      "đụ"
+    ]
+  },
+  {
+    "index": 3,
+    "post_text": "Sao mày ngu thế, địt mẹ có mỗi cái rửa bát mà cũng đéo làm được. Ngu vãi lồn",
+    "status": "toxic",
+    "toxic_detected": [
+      "mày ngu",
+      "địt mẹ",
+      "đéo",
+      "vãi lồn"
+    ]
+  },
+  {
+    "index": 4,
+    "post_text": "Hello mọi người",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  },
+  {
+    "index": 5,
+    "post_text": "150 (20/09/2024 9:14:33): \"mê cách trường bắt học từ 6h45 học từ 6h45 chờ giảng viên đến 8h38 có 1 giảng viên khác đến báo về dù giảng viên khác ấy đã được nhờ từ 7h30 mê mê mê mê \" 151 (20/09/2024 9:24:50): \"Cho em hỏi là: đầu ra của trường mình cần chứng chỉ tiếng anh, em dự định học TOEIC vào cuối năm 2 thì có hợp lý không ạ\" 152 (20/09/2024 9:26:24): \"Em năm nay là sinh viên năm nhất giáo dục tiểu học ạ. Anh/ chị khoá trên cho em hỏi là thời điểm đi dạy thêm thích hợp là năm thứ mấy và xin ở những chỗ nào uy tín ạ?\" 153 (20/09/2024 9:58:08): \"mng ơi giờ e đang năm 2 kì 1 r muốn bảo lưu thi lại có ổn kh \" 154 (20/09/2024 10:28:45): \"Mọi người cho em hỏi với, cái giấy di chuyển nvqs nộp ở đâu vậy ạ , em chỉ nhớ là nộp bên cơ sở 1 mà em không nhớ là chỗ nào, tòa nào\" 155 (20/09/2024 10:29:45): \"mê cái cách sv đợi từ 6h45 rồi 9h kém kêu sv về và sắp lịch học bù, mê mê mê trường lồn, phắc \" 156 (20/09/2024 10:31:58): \"tsv muốn yêu trường mà trường hãm quá nên em lỡ chửi trường, em xin xám hối vì lỡ chửi trường cả trăm lần 1 ngày\" 157 (20/09/2024 10:49:04): \"Nhà trường ơi nếu mà mình có thu hồi cs3 thì mình cũng đừng cho sinh viên Sư phạm vs khoa DL bọn em lên Thường Tín được không? Đường xá xa xôi nguy hiểm lắm. Đi xa như vậy làm sao mà bọn em trụ được. Cs1 xây thêm thì cho bọn em lên đấy, ở toà cũ cx đc chứ đừng cho đi được không?? Làm ơn cho sv SP bọn em ở 1 chỗ thôi được khong ạ. Mệt lắm luôn á. #tglz\"",
+    "status": "toxic",
+    "toxic_detected": [
+      "lồn"
+    ]
+  },
+  {
+    "index": 6,
+    "post_text": "8149: Mình được các cô ở phòng CTQLHSSV nhắc là báo với các bạn dù đã, sắp và chưa tốt nghiệp thì mọi người cũng nhanh chóng hoàn thành phản hồi thay đổi mới thường trú theo sát nhập mới để trường còn cho sinh viên kí và chi trả theo NĐ 116 ạ. Chỉ khi tất cả đều điền đủ thì trường mới cho kí và chi trả, còn lại thì sẽ delay tiếp đến khi đủ ạ. ___________________ #hnmuhoidap #hnmucfs",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  },
+  {
+    "index": 7,
+    "post_text": "8147: Mn ơi cho e hỏi bao giờ trường xét vb2 ạ 8148: bao h có ds hb dự kiến v ạ ___________________ #hnmuhoidap #hnmucfs",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  },
+  {
+    "index": 8,
+    "post_text": "8145: Eeeeee.... trường có thật sự công bằng không vậy. Chấm điểm các trung đội kiểu gì vậy???????? Nhiều chung đội chỉ có lèo tèo 3,4 ng đứng múa như con loăng quoăng thì đc giải nhì với ba, trong khi các trung đội như chúng em vừa múa và hát và tự bọn em cảm thấy ổn áp hơn tất cả các chung đội đứng hát( chưa kể hát lệch tông vch) thì đc giải Kk. Các thầy cô không công bằng như vậy thì có lẽ từ sau sẽ chẳng có tiết mục nào ra hồn đâu, vì đẹp mấy cũng cơ cấu mà =)))))). Nên đừng thắc mắc sao hs tập chống đối oke!!!! 8146: Các bạn sinh viên khoa S đang đòi trợ cấp ___________________ #hnmufeedback #hnmucfs",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  },
+  {
+    "index": 9,
+    "post_text": "8144: Em chào các anh chị ạ. Các anh chị học ngành ngôn ngữ Trung và Anh có thể cho em xin review khi học ở HNMU được không ạ? Em đang có ý định đặt nguyện vọng vào 2 ngành này của trường mình ạ. Em xin cảm ơn anh chị. ___________________ #hnmureview #hnmucfs",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  },
+  {
+    "index": 10,
+    "post_text": "8142: E tìm 2 bạn nữ ở trọ ạ, chuyển vào từ t8, gần cs1 ạ. Hoặc có bạn nào cần tìm người ở ghép thì bình luận để e ib ạ. Em cảm ơn 8143: có b nào đang cần tìm trọ hoặc tìm người ở ghép ko ạ có thể tìm trọ và ở với mk được ko, hiện tại mk chỉ có 1 mk và cx chưa tìm đc trọ, b nào có nhu cầu có thể thả ở dưới để mk cùng nhau tìm nhé, mk ở rất sạch sẽ và chịu khó nên mk mong tìm đc 1 b như vậy , có j khó mk bảo nhau và cùng chia sẻ ạ ___________________ #hnmutimtro #hnmucfs",
+    "status": "clean",
+    "toxic_detected": [
+      "none"
+    ]
+  }
+]
