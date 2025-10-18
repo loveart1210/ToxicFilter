@@ -1,0 +1,62 @@
+[
+  {
+    "index": 1,
+    "post_text": "Địt",
+    "semantic_label": "CLEAN",
+    "confidence": 0.681
+  },
+  {
+    "index": 2,
+    "post_text": "Đụ cặc lồn",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.701
+  },
+  {
+    "index": 3,
+    "post_text": "Sao mày ngu thế, địt mẹ có mỗi cái rửa bát mà cũng đéo làm được. Ngu vãi lồn",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.582
+  },
+  {
+    "index": 4,
+    "post_text": "Hello mọi người",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.663
+  },
+  {
+    "index": 5,
+    "post_text": "mê mê mê trường lồn phắc ",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.735
+  },
+  {
+    "index": 6,
+    "post_text": "8149: Mình được các cô ở phòng CTQLHSSV nhắc là báo với các bạn dù đã, sắp và chưa tốt nghiệp thì mọi người cũng nhanh chóng hoàn thành phản hồi thay đổi mới thường trú theo sát nhập mới để trường còn cho sinh viên kí và chi trả theo NĐ 116 ạ. Chỉ khi tất cả đều điền đủ thì trường mới cho kí và chi trả, còn lại thì sẽ delay tiếp đến khi đủ ạ. ___________________ #hnmuhoidap #hnmucfs",
+    "semantic_label": "CLEAN",
+    "confidence": 0.529
+  },
+  {
+    "index": 7,
+    "post_text": "8147: Mn ơi cho e hỏi bao giờ trường xét vb2 ạ 8148: bao h có ds hb dự kiến v ạ ___________________ #hnmuhoidap #hnmucfs",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.565
+  },
+  {
+    "index": 8,
+    "post_text": "8145: Eeeeee.... trường có thật sự công bằng không vậy. Chấm điểm các trung đội kiểu gì vậy???????? Nhiều chung đội chỉ có lèo tèo 3,4 ng đứng múa như con loăng quoăng thì đc giải nhì với ba, trong khi các trung đội như chúng em vừa múa và hát và tự bọn em cảm thấy ổn áp hơn tất cả các chung đội đứng hát( chưa kể hát lệch tông vch) thì đc giải Kk. Các thầy cô không công bằng như vậy thì có lẽ từ sau sẽ chẳng có tiết mục nào ra hồn đâu, vì đẹp mấy cũng cơ cấu mà =)))))). Nên đừng thắc mắc sao hs tập chống đối oke!!!! 8146: Các bạn sinh viên khoa S đang đòi trợ cấp ___________________ #hnmufeedback #hnmucfs",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.621
+  },
+  {
+    "index": 9,
+    "post_text": "8144: Em chào các anh chị ạ. Các anh chị học ngành ngôn ngữ Trung và Anh có thể cho em xin review khi học ở HNMU được không ạ? Em đang có ý định đặt nguyện vọng vào 2 ngành này của trường mình ạ. Em xin cảm ơn anh chị. ___________________ #hnmureview #hnmucfs",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.513
+  },
+  {
+    "index": 10,
+    "post_text": "8142: E tìm 2 bạn nữ ở trọ ạ, chuyển vào từ t8, gần cs1 ạ. Hoặc có bạn nào cần tìm người ở ghép thì bình luận để e ib ạ. Em cảm ơn 8143: có b nào đang cần tìm trọ hoặc tìm người ở ghép ko ạ có thể tìm trọ và ở với mk được ko, hiện tại mk chỉ có 1 mk và cx chưa tìm đc trọ, b nào có nhu cầu có thể thả ở dưới để mk cùng nhau tìm nhé, mk ở rất sạch sẽ và chịu khó nên mk mong tìm đc 1 b như vậy , có j khó mk bảo nhau và cùng chia sẻ ạ ___________________ #hnmutimtro #hnmucfs",
+    "semantic_label": "OFFENSIVE",
+    "confidence": 0.527
+  }
+]

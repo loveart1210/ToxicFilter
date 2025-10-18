@@ -1,6 +1,7 @@
-import sys, os, re
-import unicodedata, re
-import json
+import sys, os, re, unicodedata, json
+from docx import Document
+import fitz  # PyMuPDF
+
 
 current_dir = os.path.dirname(os.path.abspath(__file__))         # .../ToxicFilter/Module
 parent_dir = os.path.abspath(os.path.join(current_dir, '..'))    # .../ToxicFilter
@@ -9,7 +10,64 @@ sys.path.append(parent_dir)
 from Config.RegexConfig import *
 
 # ============================================================
-# 🧩 HÀM HỖ TRỢ CHUẨN HÓA VĂN BẢN
+# 🧩 1: ĐỌC DỮ LIỆU TỪ FILE (PDF / DOCX / XLSX)
+# ============================================================
+
+def load_texts_from_file(filepath, max_pages=10):
+    """
+    Đọc văn bản từ .pdf, .docx hoặc .xlsx.
+    Trả về danh sách các đoạn text.
+    """
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"Không tìm thấy file: {filepath}")
+
+    ext = os.path.splitext(filepath)[1].lower()
+
+    texts = []
+    if ext == ".pdf":
+        with fitz.open(filepath) as doc:
+            for i, page in enumerate(doc):
+                if max_pages and i >= max_pages:
+                    break
+                texts.append(page.get_text().strip())
+
+    elif ext == ".docx":
+        doc = Document(filepath)
+        texts = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+
+    else:
+        raise ValueError(f"Định dạng file không được hỗ trợ: {ext}")
+
+    if VERBOSE:
+        print(f"📘 Đã tải {len(texts)} đoạn văn từ file: {filepath}")
+
+    return texts
+
+# ============================================================
+# 🧩 2: ĐỌC DANH SÁCH TỪ KHÓA ĐỘC HẠI
+# ============================================================
+
+def load_toxic_keywords(filepath):
+    """
+    Đọc file chứa danh sách từ khóa độc hại (bỏ qua dòng trống và comment '#').
+    """
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"Không tìm thấy file: {filepath}")
+
+    with open(filepath, "r", encoding=ENCODING) as f:
+        keywords = [
+            line.strip().lower()
+            for line in f
+            if line.strip() and not line.strip().startswith("#")
+        ]
+
+    if VERBOSE:
+        print(f"🔹 Đã tải {len(keywords)} từ khóa độc hại từ: {filepath}")
+
+    return keywords
+
+# ============================================================
+# 🧩 3: CHUẨN HÓA VĂN BẢN
 # ============================================================
 
 def normalize_text(text):
@@ -28,7 +86,7 @@ def normalize_text(text):
 
 
 # ============================================================
-# 🧩 1. TẠO PATTERN REGEX
+# 🧩 4. TẠO PATTERN REGEX
 # ============================================================
 
 def compile_toxic_regex(toxic_words: list[str]):
@@ -44,22 +102,22 @@ def compile_toxic_regex(toxic_words: list[str]):
 
 
 # ============================================================
-# 🧩 2. HÀM KIỂM TRA MỘT VĂN BẢN
+# 🧩 5. HÀM KIỂM TRA VĂN BẢN
 # ============================================================
 
 def find_toxic_in_text(text: str, pattern: re.Pattern):
     """
-    Tìm và trả về danh sách các cụm từ độc hại trong một văn bản.
+    Tìm và trả về danh sách các cụm từ độc hại trong văn bản.
     """
     matches = pattern.findall(text.lower())
     return list(set(matches))
 
 
 # ============================================================
-# 🧩 3. HÀM XỬ LÝ TOÀN BỘ FILE EXCEL
+# 🧩 6. HÀM XỬ LÝ TOÀN BỘ FILE (PDF / DOCX / XLSX)
 # ============================================================
 
-def detect_toxic_from_excel(excel_path: str, col_name: str, max_rows=None):
+def detect_toxic_from_file(input_path):
     """
     Kết hợp toàn bộ pipeline:
     - Đọc file Excel
@@ -67,7 +125,7 @@ def detect_toxic_from_excel(excel_path: str, col_name: str, max_rows=None):
     - Biên dịch regex
     - Trả về danh sách kết quả theo từng dòng
     """
-    texts = load_excel_texts(filepath=excel_path, col_name=col_name, max_rows=max_rows)
+    texts = load_texts_from_file(filepath=input_path)
     toxic_words = []
     for file_path in TOXIC_PHRASES_FILE:
         toxic_words.extend([normalize_text(w) for w in load_toxic_keywords(file_path)])
@@ -80,7 +138,7 @@ def detect_toxic_from_excel(excel_path: str, col_name: str, max_rows=None):
         status = "toxic" if detected else "clean"
         results.append({
             "index": i,
-            col_name: text,
+            "text": text,
             "status": status,
             "toxic_detected": detected if detected else ["none"]
         })
@@ -88,19 +146,23 @@ def detect_toxic_from_excel(excel_path: str, col_name: str, max_rows=None):
 
 
 # ============================================================
-# 🧩 4. TEST ĐƠN GIẢN (chạy riêng module)
+# 🧩 7. TEST ĐƠN GIẢN (chạy riêng module)
 # ============================================================
-if __name__ == "__main__":
+def mainRun():
     print("🔍 Đang quét dữ liệu Excel...")
 
-    data = detect_toxic_from_excel(INPUT_XLSX, COL_NAME, max_rows=MAX_ROWS)
+    input_path = INPUT_FILE  
+
+    data = detect_toxic_from_file(input_path)
     total = len(data)
     toxic_count = sum(1 for x in data if x["status"] == "toxic")
 
     # --- Xuất ra JSON ---
     output_path = OUTPUT_JSON
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    # with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+    #     json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ Quét hoàn tất! Đã xử lý {total} dòng, phát hiện {toxic_count} toxic ({toxic_count/total:.1%})")
-    print(f"💾 Kết quả được lưu tại: {output_path}")
+    print(f"\n✅ Quét hoàn tất! Đã xử lý {total} đoạn, phát hiện {toxic_count} toxic ({toxic_count/total:.1%})")
+    print(f"💾 Kết quả được lưu tại: {OUTPUT_JSON}")
+
+    return data
