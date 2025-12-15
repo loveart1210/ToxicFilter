@@ -1,4 +1,3 @@
-from Config.SimCSEPhoBERTConfig import *
 import sys
 import os
 import json
@@ -15,6 +14,8 @@ current_dir = os.path.dirname(os.path.abspath(
 parent_dir = os.path.abspath(os.path.join(
     current_dir, '..'))    # .../ToxicFilter
 sys.path.append(parent_dir)
+
+from Config.VectorComparisonConfig import *
 
 
 # =====================================================

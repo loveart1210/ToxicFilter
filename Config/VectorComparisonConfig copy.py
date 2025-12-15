@@ -24,7 +24,7 @@ COL_NAME = "post_text"
 # Đọc bao nhiêu dòng đầu (None = đọc toàn bộ)
 MAX_ROWS = 10
 
-OUTPUT_JSON = os.path.join(BASE_DIR, "Output", "faiss.json")
+OUTPUT_JSON = os.path.join(BASE_DIR, "Output", "VectorComparison.json")
 
 # --- Tham số xử lý ---
 THRESHOLD = 0.7     # Ngưỡng tối thiểu của độ tương đồng (similarity) để một văn bản bị xem là “toxic”

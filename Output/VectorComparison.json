@@ -49,10 +49,14 @@
   },
   {
     "index": 5,
-    "post_text": "150 20 09 2024 9 14 33 mê cách trường bắt học từ 6h45 học từ 6h45 chờ giảng viên đến 8h38 có 1 giảng viên khác đến báo về dù giảng viên khác ấy đã được nhờ từ 7h30 mê mê mê mê 151 20 09 2024 9 24 50 cho em hỏi là đầu ra của trường mình cần chứng chỉ tiếng anh em dự định học toeic vào cuối năm 2 thì có hợp lý không ạ 152 20 09 2024 9 26 24 em năm nay là sinh viên năm nhất giáo dục tiểu học ạ anh chị khoá trên cho em hỏi là thời điểm đi dạy thêm thích hợp là năm thứ mấy và xin ở những chỗ nào uy tín ạ 153 20 09 2024 9 58 08 mng ơi giờ e đang năm 2 kì 1 r muốn bảo lưu thi lại có ổn kh 154 20 09 2024 10 28 45 mọi người cho em hỏi với cái giấy di chuyển nvqs nộp ở đâu vậy ạ em chỉ nhớ là nộp bên cơ sở 1 mà em không nhớ là chỗ nào tòa nào 155 20 09 2024 10 29 45 mê cái cách sv đợi từ 6h45 rồi 9h kém kêu sv về và sắp lịch học bù mê mê mê trường lồn phắc 156 20 09 2024 10 31 58 tsv muốn yêu trường mà trường hãm quá nên em lỡ chửi trường em xin xám hối vì lỡ chửi trường cả trăm lần 1 ngày 157 20 09 2024 10 49 04 nhà trường ơi nếu mà mình có thu hồi cs3 thì mình cũng đừng cho sinh viên sư phạm vs khoa dl bọn em lên thường tín được không đường xá xa xôi nguy hiểm lắm đi xa như vậy làm sao mà bọn em trụ được cs1 xây thêm thì cho bọn em lên đấy ở toà cũ cx đc chứ đừng cho đi được không làm ơn cho sv sp bọn em ở 1 chỗ thôi được khong ạ mệt lắm luôn á tglz",
-    "status": "clean",
-    "toxic_phrase": [],
-    "similarity": []
+    "post_text": "mê mê mê trường lồn phắc",
+    "status": "toxic",
+    "toxic_phrase": [
+      "mặt lồn"
+    ],
+    "similarity": [
+      0.711
+    ]
   },
   {
     "index": 6,
