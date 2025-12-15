@@ -4,8 +4,13 @@ import os
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 # --- Cấu hình đường dẫn mô hình embedding ---
+<<<<<<< HEAD
 MODEL_DIR = r"D:\Model"
 MODEL_PATH = os.path.join(MODEL_DIR, "models--VoVanPhuc--sup-SimCSE-Vietnamese-phobert-base")
+=======
+MODEL_DIR = "Model"
+MODEL_PATH = os.path.join(MODEL_DIR, "sup-SimCSE-VietNamese-phobert-base")
+>>>>>>> 82706cd680c383c1bce43a2018b1b0a176c64959
 
 # --- File chứa danh sách cụm từ độc hại để build Vector DB ---
 TOXIC_PHRASES_FILE = [
@@ -17,6 +22,7 @@ TOXIC_PHRASES_FILE = [
 FAISS_INDEX_FILE = os.path.join(BASE_DIR, "Database", "Vector", "vector_index.faiss")
 VECTOR_DB_JSON = os.path.join(BASE_DIR, "Database", "Vector", "vector_db.json")
 
+<<<<<<< HEAD
 # --- File Excel đầu vào & JSON đầu ra ---
 INPUT_XLSX = os.path.join(BASE_DIR, "Documents", "Confessions of HNMU.xlsx")
 COL_NAME = "post_text"
@@ -29,10 +35,20 @@ OUTPUT_JSON = os.path.join(BASE_DIR, "Output", "VectorComparison.json")
 # --- Tham số xử lý ---
 THRESHOLD = 0.7     # Ngưỡng tối thiểu của độ tương đồng (similarity) để một văn bản bị xem là “toxic”
 TOP_K = 3            # Lấy top K cụm gần nhất từ FAISS
+=======
+# --- File đầu vào và đầu ra ---
+INPUT_FILE = os.path.join(BASE_DIR, "Documents", "Văn bản 1.pdf")
+OUTPUT_JSON = os.path.join(BASE_DIR, "Output", "VectorComparison.json")
+
+# --- Tham số xử lý ---
+THRESHOLD = 0.7      # Ngưỡng tối thiểu của độ tương đồng (similarity) để một văn bản bị xem là “toxic”
+TOP_K = 3            # Số cụm gần nhất lấy từ FAISS
+>>>>>>> 82706cd680c383c1bce43a2018b1b0a176c64959
 VERBOSE = True       # Bật in log chi tiết
 
 # --- Encoding ---
 ENCODING = "utf-8"
+<<<<<<< HEAD
 
 # ==============================================
 # ✅ HÀM HỖ TRỢ CHUYỂN ĐƯỜNG DẪN
@@ -42,3 +58,5 @@ def abs_path(*paths):
     Trả về đường dẫn tuyệt đối dựa theo BASE_DIR
     """
     return os.path.join(BASE_DIR, *paths)
+=======
+>>>>>>> 82706cd680c383c1bce43a2018b1b0a176c64959

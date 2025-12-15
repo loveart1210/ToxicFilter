@@ -1,58 +1,63 @@
+<<<<<<<< HEAD:Library/VectorComparisonModule.py
 import sys
 import os
 import json
 import faiss
 import numpy as np
+========
+import sys, os, re, numpy as np, unicodedata, json, faiss, pandas as pd
+>>>>>>>> 82706cd680c383c1bce43a2018b1b0a176c64959:Library/VectorComparison.py
 from sentence_transformers import SentenceTransformer
-import unicodedata
-import re
-import pandas as pd
-import json
+from docx import Document
+import fitz # PyMuPDF
+from huggingface_hub import login
 
-current_dir = os.path.dirname(os.path.abspath(
-    __file__))         # .../ToxicFilter/Module
-parent_dir = os.path.abspath(os.path.join(
-    current_dir, '..'))    # .../ToxicFilter
+current_dir = os.path.dirname(os.path.abspath(__file__))         # .../ToxicFilter/Module
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))    # .../ToxicFilter
 sys.path.append(parent_dir)
 
 from Config.VectorComparisonConfig import *
+<<<<<<<< HEAD:Library/VectorComparisonModule.py
 
+========
+>>>>>>>> 82706cd680c383c1bce43a2018b1b0a176c64959:Library/VectorComparison.py
 
 # =====================================================
-# 🔹 0. HÀM HỖ TRỢ LOAD MODEL THÔ
+# 🔹 1. LOAD MODEL EMBEDDING
 # =====================================================
 
-def load_embedding_model(model_path):
+def load_embedding_model(model_path, model_dir="Model"):
     """
-    Load mô hình embedding thông minh:
-    - Nếu model_path là tên Hugging Face → dùng cache tự động.
-    - Nếu model_path là local path → tự tìm thư mục snapshot có model.safetensors hoặc pytorch_model.bin.
+    Tải mô hình embedding:
+    - Nếu model_path là repo name Hugging Face → tải về model_dir nếu chưa có.
+    - Nếu model_path là đường dẫn local → tải trực tiếp.
     """
-    # Nếu là repo name trên Hugging Face (không chứa ổ đĩa, có dạng user/model)
-    if not os.path.isabs(model_path):
-        print(f"🔹 Loading model from Hugging Face Hub: {model_path}")
-        return SentenceTransformer(model_path)
-
-    # Nếu là thư mục local chứa model phẳng
-    if any(os.path.isfile(os.path.join(model_path, f)) for f in ["pytorch_model.bin", "model.safetensors"]):
+        
+    # Nếu là đường dẫn tuyệt đối hoặc thư mục local
+    if os.path.isdir(model_path):
         print(f"🔹 Loading local model from: {model_path}")
         return SentenceTransformer(model_path)
 
-    # Nếu là thư mục local có snapshots
-    snapshot_dir = os.path.join(model_path, "snapshots")
-    if os.path.exists(snapshot_dir):
-        for sub in os.listdir(snapshot_dir):
-            sub_path = os.path.join(snapshot_dir, sub)
-            if any(os.path.isfile(os.path.join(sub_path, f)) for f in ["pytorch_model.bin", "model.safetensors"]):
-                print(f"🔹 Loading model from snapshot: {sub_path}")
-                return SentenceTransformer(sub_path)
+    # Tên repo Hugging Face
+    repo_name = model_path.strip()
 
-    # Nếu không tìm thấy
-    raise FileNotFoundError(
-        f"❌ Không tìm thấy mô hình hợp lệ trong: {model_path}")
+    # Đường dẫn local tương ứng (cache)
+    local_model_path = os.path.join(model_dir, "models--" + repo_name.replace("/", "--"))
+
+    # Nếu đã tồn tại local model
+    if os.path.exists(local_model_path):
+        print(f"🔹 Found local model at: {local_model_path}")
+        return SentenceTransformer(local_model_path)
+
+    # Nếu chưa có local model → tải về
+    print(f"⬇️ Model not found locally. Downloading from Hugging Face: {repo_name}")
+    os.makedirs(model_dir, exist_ok=True)
+    model = SentenceTransformer(repo_name, cache_folder=model_dir)
+    print(f"✅ Model downloaded and cached in: {local_model_path}")
+    return model
 
 # =====================================================
-# 🔹 HÀM HỖ TRỢ CHUẨN HÓA VĂN BẢN
+# 🔹 2. CHUẨN HÓA VĂN BẢN
 # =====================================================
 
 
@@ -70,8 +75,44 @@ def normalize_text(text):
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
+
 # =====================================================
-# 🔹 1. TẠO VÀ LƯU VECTOR DB + FAISS INDEX
+# 🔹 3. ĐỌC DỮ LIỆU TỪ FILE (PDF / DOCX)
+# =====================================================
+
+def load_texts_from_file(filepath, max_pages=10):
+    """
+    Đọc nội dung văn bản từ file .pdf hoặc .docx.
+    """
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"Không tìm thấy file: {filepath}")
+
+    ext = os.path.splitext(filepath)[1].lower()
+    texts = []
+
+    if ext == ".pdf":
+        with fitz.open(filepath) as doc:
+            for i, page in enumerate(doc):
+                if max_pages and i >= max_pages:
+                    break
+                text = page.get_text().strip()
+                if text:
+                    texts.append(text)
+
+    elif ext == ".docx":
+        doc = Document(filepath)
+        texts = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+
+    else:
+        raise ValueError(f"❌ Chỉ hỗ trợ .pdf và .docx, không hỗ trợ {ext}")
+
+    if VERBOSE:
+        print(f"📘 Đã tải {len(texts)} đoạn văn từ file: {filepath}")
+
+    return texts
+
+# =====================================================
+# 🔹 4. TẠO VÀ LƯU VECTOR DB + FAISS INDEX
 # =====================================================
 
 
@@ -133,45 +174,35 @@ def create_vector_db():
 
 
 # =====================================================
-# 🔹 2. DÒ TOXIC TRONG FILE EXCEL
+# 🔹 5. DÒ TOXIC TRONG FILE PDF / DOCX
 # =====================================================
 
-def detect_toxic_from_excel():
+def detect_toxic_from_file():
     """
-    Dò nội dung độc hại trong file Excel đầu vào.
-    So sánh embedding của mỗi dòng văn bản với Vector DB bằng FAISS.
+    Dò nội dung độc hại trong file PDF/DOCX đầu vào.
+    So sánh embedding của mỗi đoạn với Vector DB bằng FAISS.
     """
-
     if not os.path.exists(FAISS_INDEX_FILE):
         raise FileNotFoundError(
             "❌ FAISS index not found. Run create_vector_db() first.")
 
-    # --- Load model và FAISS index ---
     model = load_embedding_model(MODEL_PATH)
     index = faiss.read_index(FAISS_INDEX_FILE)
     with open(VECTOR_DB_JSON, "r", encoding="utf-8") as f:
         vector_db = json.load(f)
     texts_db = [v["text"] for v in vector_db]
 
-    # --- Đọc dữ liệu Excel ---
-    df = pd.read_excel(INPUT_XLSX, nrows=MAX_ROWS)
-    if COL_NAME not in df.columns:
-        raise ValueError(f"❌ Cột '{COL_NAME}' không tồn tại trong file Excel.")
-    texts = df[COL_NAME].astype(str).fillna("").tolist()
-
+    texts = load_texts_from_file(INPUT_FILE)
     results = []
 
     if VERBOSE:
-        print(f"🔍 Scanning {len(texts)} rows from {INPUT_XLSX}...")
+        print(f"🔍 Scanning {len(texts)} đoạn văn từ: {INPUT_FILE}")
 
     for i, text in enumerate(texts, start=1):
-        text = normalize_text(text)
+        norm_text = normalize_text(text)
         emb = model.encode(
-            [text], normalize_embeddings=True).astype(np.float32)
+            [norm_text], normalize_embeddings=True).astype(np.float32)
         sims, idxs = index.search(emb, k=TOP_K)
-
-        # sim_score = float(sims[0][0])
-        # matched_phrase = texts_db[idxs[0][0]]
 
         toxic_matches = []
         for sim, idx in zip(sims[0], idxs[0]):
@@ -181,26 +212,15 @@ def detect_toxic_from_excel():
                     "similarity": round(float(sim), 3)
                 })
 
-        if toxic_matches:
-            result = {
-                "index": i,
-                COL_NAME: text,
-                "status": "toxic",
-                "toxic_phrase": [m["phrase"] for m in toxic_matches],
-                "similarity": [m["similarity"] for m in toxic_matches]
-            }
-        else:
-            result = {
-                "index": i,
-                COL_NAME: text,
-                "status": "clean",
-                "toxic_phrase": [],
-                "similarity": []
-            }
-
+        result = {
+            "index": i,
+            "text": text,
+            "status": "toxic" if toxic_matches else "clean",
+            "toxic_phrase": [m["phrase"] for m in toxic_matches],
+            "similarity": [m["similarity"] for m in toxic_matches]
+        }
         results.append(result)
 
-    # --- Lưu kết quả ---
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
@@ -209,11 +229,11 @@ def detect_toxic_from_excel():
 
 
 # =====================================================
-# 🔹 3. MAIN TEST
+# 🔹 6. MAIN TEST
 # =====================================================
 if __name__ == "__main__":
     print("🔧 Creating FAISS index...")
     create_vector_db()
 
-    print("\n🔍 Detecting toxic posts...")
-    detect_toxic_from_excel()
+    print("\n🔍 Detecting toxic content...")
+    detect_toxic_from_file()
